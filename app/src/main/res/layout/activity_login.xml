@@ -48,10 +48,12 @@
         android:layout_marginTop="16dp"
         android:enabled="true"
         android:text="@string/sign_in"
+        android:onClick="handleSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textForgotPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/textForgotPassword"
+        />
 
     <ProgressBar
         android:id="@+id/loading"

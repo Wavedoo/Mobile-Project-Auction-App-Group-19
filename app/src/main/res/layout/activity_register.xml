@@ -44,7 +44,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
-        android:autofillHints="@string/prompt_password"
+        android:autofillHints="@string/password_confirmation"
+        android:hint="@string/password_confirmation"
         android:imeActionLabel="@string/sign_in"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
@@ -54,12 +55,13 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:layout_marginTop="16dp"
-        android:enabled="false"
+        android:enabled="true"
+        android:onClick="handleRegister"
         android:text="@string/register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -101,7 +103,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
     <TextView
         android:id="@+id/textSignUp"
@@ -109,6 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:clickable="true"
+        android:onClick="handleHasAccount"
         android:text="@string/sign_in"
         android:textColor="#0000FF"
         app:layout_constraintEnd_toEndOf="parent"

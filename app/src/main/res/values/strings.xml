@@ -18,4 +18,9 @@
     <string name="sign_up">Sign Up</string>
     <string name="already_have_account">Already have an account?</string>
     <string name="password_confirmation">Re-enter password</string>
+    <string name="log_off">LOG OFF</string>
+    <string name="opening_message">Opening Message</string>
+    <string name="check_available_auctions">Check available Auctions</string>
+    <string name="list_auction">List an Item for Auction</string>
+    <string name="previous_listed">Previously listed Auction items</string>
 </resources>

@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class RegisterActivity extends FragmentActivity {
+public class RegisterActivity extends FragmentActivity  {
     private EditText usernameEditText;
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;

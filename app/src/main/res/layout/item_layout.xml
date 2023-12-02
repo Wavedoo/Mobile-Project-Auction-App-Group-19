@@ -73,7 +73,7 @@
         android:layout_alignParentEnd="true"
         android:text="Bid"/>
 
-    <!-- Current Bid -->
+    <!-- Current Bid Text-->
     <TextView
         android:id="@+id/textViewCurrentBid"
         android:layout_width="wrap_content"
@@ -91,8 +91,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/dividerLine"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
-        android:layout_alignParentEnd="true"
-        android:text="Bids: 5"/>
+        android:layout_marginRight="9dp"
+        android:layout_toLeftOf="@id/btnBid"
+        android:layout_toRightOf="@id/textViewCurrentBid"
+        android:text="Bids: 5"
+        android:textAlignment="center"
+        android:textSize="20sp" />
 
 </RelativeLayout>

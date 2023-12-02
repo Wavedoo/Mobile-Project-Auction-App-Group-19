@@ -1,12 +1,15 @@
 package com.example.auctionapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,19 +19,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
 
+        //Get user details from Login...
         Intent intent = getIntent();
         if (intent.hasExtra("user_object")) {
             AuctionUser recievedUser = (AuctionUser) intent.getSerializableExtra("user_object");
             user= recievedUser;
         }
-
-        TextView welcome = findViewById(R.id.welcome);
+        TextView welcome = findViewById(R.id.textViewToolbarTitle);
         welcome.setText("Welcome " + user.getUsername());
 
-        TextView openMessage = findViewById(R.id.openingMessage);
-        openMessage.setText("What would you like to do today?");
+
+        //Add items to list
+        // Assume you have a list of AuctionItems from your database
+        List<AuctionItem> auctionItemList = getAuctionItemsFromDatabase();
+
+        // Initialize RecyclerView
+        recyclerView = findViewById(R.id.recyclerViewAuctionItems);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize Adapter
+        adapter = new AuctionItemAdapter(auctionItemList);
+        recyclerView.setAdapter(adapter);
+
     }
 
 

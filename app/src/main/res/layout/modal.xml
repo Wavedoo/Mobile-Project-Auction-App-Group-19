@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewModalTitle"
+        android:text="Place a Bid:"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="15dp"
+        android:textColor="@color/black"
+        >
+
+    </TextView>
+    <EditText
+        android:id="@+id/editBidAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Bid Amount"
+        android:inputType="numberDecimal"/>
+
+    <Button
+        android:id="@+id/btnConfirmBid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Bid"
+        />
+
+    <Button
+        android:id="@+id/btnCancelBid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"/>
+</LinearLayout>

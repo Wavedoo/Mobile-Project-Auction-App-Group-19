@@ -23,12 +23,12 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/purple_200">
 
-            <!-- Title -->
+            <!-- Welcome User -->
             <TextView
                 android:id="@+id/textViewToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Home"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -52,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appBarLayout"
+        android:layout_above="@id/bottomNavigationView"
         android:paddingTop="8dp"
         android:paddingBottom="8dp" />
 

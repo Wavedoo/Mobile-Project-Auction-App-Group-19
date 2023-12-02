@@ -1,0 +1,98 @@
+<!-- res/layout/item_auction.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Auction Item Title"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginTop="8dp"
+        android:text="Auction Item Description"/>
+
+    <!-- Image -->
+    <ImageView
+        android:id="@+id/imageViewAuctionItem"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/placeholder_image"/>
+
+    <!-- Location Icon -->
+
+    <!-- Location Text -->
+    <ImageView
+        android:id="@+id/imageViewLocationIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/imageViewAuctionItem"
+        android:layout_alignLeft="@id/textViewLocation"
+        android:layout_marginLeft="-29dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_location" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageViewAuctionItem"
+
+        android:layout_marginTop="8dp"
+
+        android:layout_alignParentEnd="true"
+        android:text="Auction Item Location"/>
+
+    <!-- Divider Line -->
+    <View
+        android:id="@+id/dividerLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/textViewLocation"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- Bid Button -->
+    <Button
+        android:id="@+id/btnBid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerLine"
+        android:layout_alignParentEnd="true"
+        android:text="Bid"/>
+
+    <!-- Current Bid -->
+    <TextView
+        android:id="@+id/textViewCurrentBid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerLine"
+        android:layout_marginEnd="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:text="Current Bid: $100"/>
+
+    <!-- Number of Bids -->
+    <TextView
+        android:id="@+id/textViewNumBids"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerLine"
+        android:layout_marginEnd="8dp"
+        android:layout_alignParentEnd="true"
+        android:text="Bids: 5"/>
+
+</RelativeLayout>

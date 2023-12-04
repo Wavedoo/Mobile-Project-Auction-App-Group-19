@@ -154,7 +154,6 @@ public class DatabaseServices {
         ContentValues values = new ContentValues();
         values.put(SQLHelper.COLUMN_AUCTION_ITEM_TITLE, auctionItem.getTitle());
         values.put(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION, auctionItem.getDescription());
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_CREATEDUSER, auctionItem.getCreatedUser());
         values.put(SQLHelper.COLUMN_AUCTION_ITEM_LOCATION, auctionItem.getLocation());
         values.put(SQLHelper.COLUMN_AUCTION_ITEM_START_BID, auctionItem.getStartBid());
         values.put(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID, auctionItem.getCurrentBid());

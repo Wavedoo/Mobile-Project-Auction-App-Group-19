@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         TextView welcome = findViewById(R.id.textViewToolbarTitle);
         welcome.setText("Welcome " + user.getUsername());
 
-
         //Set Up Bottom Navigation:
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);

@@ -103,18 +103,23 @@ public class UserAuctionItemAdapter extends RecyclerView.Adapter<UserAuctionItem
             //The user who has the current bid is the winner of this auction item
             //Get the username of the user where currentBid = bidAmount in Bid table
             try{
-                //OPen Database and get winnner
-                DatabaseServices db = new DatabaseServices(context);
-                db.open();
-                String winnerUsername;
-                double winningBid= Double.parseDouble(auctionItem.getCurrentBid());
-                winnerUsername= db.getWinnerOfAuctionItem(auctionItem.getId(),winningBid);
-                //Delete the auction item
-                db.deleteAuctionItem(auctionItem.getId());
-                //Make Toast
-                Toast.makeText(context,winnerUsername+" has won the auction item!", Toast.LENGTH_SHORT).show();
-                db.close();
-                notifyDataSetChanged();
+                if(auctionItem.getBids().equals("0")){
+                    Toast.makeText(context, "No Bidders on this item", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //OPen Database and get winnner
+                    DatabaseServices db = new DatabaseServices(context);
+                    db.open();
+                    String winnerUsername;
+                    double winningBid = Double.parseDouble(auctionItem.getCurrentBid());
+                    winnerUsername = db.getWinnerOfAuctionItem(auctionItem.getId(), winningBid);
+                    //Delete the auction item
+                    db.deleteAuctionItem(auctionItem.getId());
+                    //Make Toast
+                    Toast.makeText(context, winnerUsername + " has won the auction item!", Toast.LENGTH_SHORT).show();
+                    db.close();
+                    notifyDataSetChanged();
+                }
 
             }catch (SQLException e) {
 

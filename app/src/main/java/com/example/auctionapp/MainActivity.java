@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //Set Up Bottom Navigation:
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
 
         List<AuctionItem> auctionItemList= new ArrayList<>();
         try {

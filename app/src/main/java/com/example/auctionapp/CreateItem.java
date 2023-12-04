@@ -54,6 +54,8 @@ public class CreateItem extends AppCompatActivity {
         //Set Up Bottom Navigation:
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.setSelectedItemId(R.id.action_add);
+
     }
     //Button OnClick Functions
     public void chooseImageOnClick(View view){

@@ -34,6 +34,7 @@ public class AddActivity extends AppCompatActivity {
         //Set Up Bottom Navigation:
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.setSelectedItemId(R.id.action_add);
         //Get All Auction Items associated with current user
        List<AuctionItem> auctionItemList= new ArrayList<>();
         try {

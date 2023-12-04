@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -87,6 +88,85 @@ public class DatabaseServices {
         return user;
     }
     //Auction Item Functions:
+    //Delete Auction item
+    public void deleteAuctionItem(long auctionItemId) {
+        String whereClause = SQLHelper.COLUMN_AUCTION_ITEM_ID + " = ?";
+        String[] whereArgs = {String.valueOf(auctionItemId)};
+        // delete operation
+        int rowsDeleted = database.delete(SQLHelper.TABLE_AUCTION_ITEMS, whereClause, whereArgs);
+    }
+    //Get The Winning Bidder User
+    @SuppressLint("Range")
+    public String getWinnerOfAuctionItem(long auctionItemId, double bidAmount) {
+        String selection = SQLHelper.COLUMN_BID_AUCTION_ITEM_ID + " = ? AND " +
+                SQLHelper.COLUMN_BID_AMOUNT + " = ?";
+        String[] selectionArgs = { String.valueOf(auctionItemId), String.valueOf(bidAmount) };
+
+        Cursor cursor = database.query(
+                SQLHelper.TABLE_BIDS,
+                new String[]{SQLHelper.COLUMN_BID_USER},
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        String biddingUser = null;
+        if (cursor.moveToFirst()) {
+            biddingUser = cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_BID_USER));
+        }
+
+        cursor.close();
+        return biddingUser;
+    }
+
+    //Get All Auction Items associated with user
+    public List<AuctionItem> getAllAuctionItemsWithImageForUser(String username) {
+        List<AuctionItem> items = new ArrayList<>();
+        String selection = SQLHelper.COLUMN_AUCTION_ITEM_CREATEDUSER + " = ?";
+        String[] selectionArgs = { username };
+
+        Cursor cursor = database.query(
+                SQLHelper.TABLE_AUCTION_ITEMS,
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                AuctionItem item = cursorToAuctionItemWithImage(cursor);
+                items.add(item);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return items;
+    }
+    //Update Item
+    public long updateAuctionItem(AuctionItem auctionItem) {
+        ContentValues values = new ContentValues();
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_TITLE, auctionItem.getTitle());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION, auctionItem.getDescription());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_CREATEDUSER, auctionItem.getCreatedUser());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_LOCATION, auctionItem.getLocation());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_START_BID, auctionItem.getStartBid());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID, auctionItem.getCurrentBid());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_BIDS, auctionItem.getBids());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_IMAGE, auctionItem.getImage());
+        values.put(SQLHelper.COLUMN_AUCTION_ITEM_VIDEO, auctionItem.getImage());
+
+        String whereClause = "_id = ?";
+        String[] whereArgs = {String.valueOf(auctionItem.getId())};
+        // Perform the update operation
+        return database.update(TABLE_AUCTION_ITEMS, values, whereClause, whereArgs);
+    }
     //Retrieving Auction Item from Database
     //-> Functions to retrieve the Image/Video
         // Function to retrieve image as Bitmap from BLOB data
@@ -125,7 +205,33 @@ public class DatabaseServices {
         );
     }
     //Get Auction Item With Media Converted To be Displayed and in a list
-    public List<AuctionItem> getAllAuctionItemsWithMedia() {
+    //Get Auction Items only with Image to display on Home Page:
+    public List<AuctionItem> getAllAuctionItemsWithImage() {
+        List<AuctionItem> items = new ArrayList<>();
+        Cursor cursor = database.query(
+                SQLHelper.TABLE_AUCTION_ITEMS,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                AuctionItem item = cursorToAuctionItemWithImage(cursor);
+                items.add(item);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return items;
+    }
+    //
+    public List<AuctionItem> getAllAuctionItemsWithVideoImage() {
         List<AuctionItem> items = new ArrayList<>();
         Cursor cursor = database.query(
                 SQLHelper.TABLE_AUCTION_ITEMS,
@@ -156,47 +262,59 @@ public class DatabaseServices {
         item.setId(cursor.getLong(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_ID)));
         item.setTitle(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_TITLE)));
         item.setDescription(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION)));
-        item.setStartBid(cursor.getDouble(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_START_BID)));
+        item.setStartBid(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_START_BID)));
         item.setLocation(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_LOCATION)));
-        item.setCurrentBid(cursor.getDouble(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID)));
-        item.setBids(cursor.getInt(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_BIDS)));
+        item.setCurrentBid(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID)));
+        item.setBids(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_BIDS)));
+
 
         // Retrieve image and video data from BLOB columns
         byte[] imageData = cursor.getBlob(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_IMAGE));
         byte[] videoData = cursor.getBlob(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_VIDEO));
 
         // Convert BLOB data to appropriate format
-        item.setImage(getBitmapFromBlob(imageData));
+        item.setImage(imageData);
         item.setVideo(getVideoBytesFromBlob(videoData));
 
-        // Calculate and set the current bid
-        long auctionItemId = cursor.getLong(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_ID));
-        double currentBid = calculateCurrentBid(auctionItemId);
-        item.setCurrentBid(currentBid);
+        return item;
+    }
+    //With Image only
+    @SuppressLint("Range")
+    private AuctionItem cursorToAuctionItemWithImage(Cursor cursor) {
+        AuctionItem item = new AuctionItem();
+        item.setId(cursor.getLong(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_ID)));
+        item.setTitle(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_TITLE)));
+        item.setDescription(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION)));
+        item.setStartBid(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_START_BID)));
+        item.setLocation(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_LOCATION)));
+        item.setCurrentBid(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID)));
+        item.setBids(cursor.getString(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_BIDS)));
+
+        // Retrieve image and video data from BLOB columns
+        byte[] imageData = cursor.getBlob(cursor.getColumnIndex(SQLHelper.COLUMN_AUCTION_ITEM_IMAGE));
+        // Convert BLOB data to appropriate format
+        item.setImage(imageData);
 
         return item;
     }
 
     //Adding Auction item to Database
     public long addAuctionItem(AuctionItem auctionItem) {
-        ContentValues values = new ContentValues();
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_TITLE, auctionItem.getTitle());
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION, auctionItem.getDescription());
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_START_BID, auctionItem.getStartBid());
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID, auctionItem.getCurrentBid());
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_BIDS, auctionItem.getBids());
+            ContentValues values = new ContentValues();
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_TITLE, auctionItem.getTitle());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_DESCRIPTION, auctionItem.getDescription());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_CREATEDUSER, auctionItem.getCreatedUser());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_LOCATION, auctionItem.getLocation());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_START_BID, auctionItem.getStartBid());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_CURRENT_BID, "0");
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_BIDS, "0");
 
-        // Convert image to byte array (BLOB) before storing in the database
-        Bitmap imageBitmap = auctionItem.getImage();
-        if (imageBitmap != null) {
-            byte[] imageBytes = getBytesFromBitmap(imageBitmap);
-            values.put(SQLHelper.COLUMN_AUCTION_ITEM_IMAGE, imageBytes);
-        }
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_IMAGE, auctionItem.getImage());
+            values.put(SQLHelper.COLUMN_AUCTION_ITEM_VIDEO, auctionItem.getImage());
 
-        // Store video data directly as BLOB
-        values.put(SQLHelper.COLUMN_AUCTION_ITEM_VIDEO, auctionItem.getVideo());
+            return database.insert(SQLHelper.TABLE_AUCTION_ITEMS, null, values);
 
-        return database.insert(SQLHelper.TABLE_AUCTION_ITEMS, null, values);
+
     }
 
     // Helper method to convert Bitmap to byte array
@@ -246,13 +364,14 @@ public class DatabaseServices {
         );
 
         double currentBid = 0;
-        if (cursor.moveToFirst()) {
+        if (cursor.moveToFirst() && !cursor.isNull(0)) {
             currentBid = cursor.getDouble(0);
         }
 
         cursor.close();
         return currentBid;
     }
+
 
 
 }

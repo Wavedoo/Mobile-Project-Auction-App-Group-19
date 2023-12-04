@@ -13,10 +13,9 @@
         android:textSize="24sp"
         android:textAlignment="center"
         android:layout_marginBottom="15dp"
-        android:textColor="@color/black"
-        >
-
+        android:textColor="@color/black">
     </TextView>
+
     <EditText
         android:id="@+id/editBidAmount"
         android:layout_width="match_parent"
@@ -24,12 +23,21 @@
         android:hint="Enter Bid Amount"
         android:inputType="numberDecimal"/>
 
+    <!-- Error TextView -->
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"/>
+
     <Button
         android:id="@+id/btnConfirmBid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm Bid"
-        />
+        android:text="Confirm Bid"/>
 
     <Button
         android:id="@+id/btnCancelBid"

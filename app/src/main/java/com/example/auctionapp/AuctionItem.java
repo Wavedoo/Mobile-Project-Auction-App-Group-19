@@ -6,15 +6,16 @@ public class AuctionItem {
     private long id;
     private String title;
     private String description;
-    private double startBid;
-    private double currentBid;
-    private int bids;
+    private String createdUser;
+    private String startBid;
+    private String currentBid;
+    private String bids;
 
     //Location variable
     private String location;
 
     //Image and Video of Item
-    private Bitmap image;  // New property for image data
+    private byte[] image;  // New property for image data
     private byte[] video;
 
 
@@ -23,10 +24,11 @@ public class AuctionItem {
     }
 
 
-    public AuctionItem(long id, String title, String description, String location, double startBid, double currentBid, int bids, Bitmap image, byte[] video) {
+    public AuctionItem(long id, String title, String description, String createdUser, String location, String startBid, String currentBid, String bids, byte[] image, byte[] video) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.createdUser=createdUser;
         this.location=location;
         this.startBid = startBid;
         this.currentBid = currentBid;
@@ -34,13 +36,29 @@ public class AuctionItem {
         this.image = image;
         this.video = video;
     }
+    public AuctionItem(String title, String description, String createdUser, String location, String startBid, byte[] image) {
+        this.title = title;
+        this.description = description;
+        this.createdUser=createdUser;
+        this.location=location;
+        this.startBid = startBid;
+        this.image = image;
+    }
+
+    public String getCreatedUser() {
+        return createdUser;
+    }
+
+    public void setCreatedUser(String createdUser) {
+        this.createdUser = createdUser;
+    }
 
     // Getters and Setters
-    public Bitmap getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Bitmap image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -83,27 +101,27 @@ public class AuctionItem {
         this.location = location;
     }
 
-    public double getStartBid() {
+    public String getStartBid() {
         return startBid;
     }
 
-    public void setStartBid(double startBid) {
+    public void setStartBid(String startBid) {
         this.startBid = startBid;
     }
 
-    public double getCurrentBid() {
+    public String getCurrentBid() {
         return currentBid;
     }
 
-    public void setCurrentBid(double currentBid) {
+    public void setCurrentBid(String currentBid) {
         this.currentBid = currentBid;
     }
 
-    public int getBids() {
+    public String getBids() {
         return bids;
     }
 
-    public void setBids(int bids) {
+    public void setBids(String bids) {
         this.bids = bids;
     }
 

@@ -82,12 +82,12 @@
 
         <!-- Bid Button -->
         <Button
-            android:id="@+id/btnBid"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnWinner"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/dividerLine"
             android:layout_alignParentEnd="true"
-            android:text="Bid"/>
+            android:text="Make Winner"/>
 
         <!-- Current Bid Text-->
         <TextView

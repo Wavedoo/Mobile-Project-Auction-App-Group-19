@@ -12,8 +12,7 @@ public class Bid {
         // Default constructor
     }
 
-    public Bid(long id, long auctionItemId, double bidAmount, String biddingUser, String bidTime, String bidDate) {
-        this.id = id;
+    public Bid(long auctionItemId, double bidAmount, String biddingUser, String bidTime, String bidDate) {
         this.auctionItemId = auctionItemId;
         this.bidAmount = bidAmount;
         this.biddingUser = biddingUser;

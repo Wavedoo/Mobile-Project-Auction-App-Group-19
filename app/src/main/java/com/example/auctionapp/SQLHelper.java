@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class SQLHelper extends SQLiteOpenHelper {
     //Auction User Table
-    private static final String DATABASE_NAME = "auctionUsers.db";
+    private static final String DATABASE_NAME = "auctionapp.db";
     private static final int DATABASE_VERSION = 1;
     public static final String TABLE_AUCTIONUSERS = "auctionUsers";
     //Columns names of Auction User Table
@@ -20,6 +20,7 @@ public class SQLHelper extends SQLiteOpenHelper {
     public static final String COLUMN_AUCTION_ITEM_ID = "_id";
     public static final String COLUMN_AUCTION_ITEM_TITLE = "title";
     public static final String COLUMN_AUCTION_ITEM_DESCRIPTION = "description";
+    public static final String COLUMN_AUCTION_ITEM_CREATEDUSER = "createdUser";
     public static final String COLUMN_AUCTION_ITEM_LOCATION ="location";
     public static final String COLUMN_AUCTION_ITEM_START_BID = "startBid";
     public static final String COLUMN_AUCTION_ITEM_CURRENT_BID = "currentBid";
@@ -55,10 +56,11 @@ public class SQLHelper extends SQLiteOpenHelper {
                     COLUMN_AUCTION_ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_AUCTION_ITEM_TITLE + " TEXT, " +
                     COLUMN_AUCTION_ITEM_DESCRIPTION + " TEXT, " +
+                    COLUMN_AUCTION_ITEM_CREATEDUSER + " TEXT, " +
                     COLUMN_AUCTION_ITEM_LOCATION + " TEXT, " +
-                    COLUMN_AUCTION_ITEM_START_BID + " REAL, " +
-                    COLUMN_AUCTION_ITEM_CURRENT_BID + " REAL, " +
-                    COLUMN_AUCTION_ITEM_BIDS + " INTEGER," +
+                    COLUMN_AUCTION_ITEM_START_BID + " TEXT, " +
+                    COLUMN_AUCTION_ITEM_CURRENT_BID + " TEXT, " +
+                    COLUMN_AUCTION_ITEM_BIDS + " TEXT," +
                     COLUMN_AUCTION_ITEM_IMAGE + " BLOB, " +
                     COLUMN_AUCTION_ITEM_VIDEO + " BLOB" +
                     ");";
@@ -67,7 +69,7 @@ public class SQLHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + TABLE_BIDS + " (" +
                     COLUMN_BID_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_BID_AUCTION_ITEM_ID + " INTEGER, " +
-                    COLUMN_BID_AMOUNT + " REAL, " +
+                    COLUMN_BID_AMOUNT + " TEXT, " +
                     COLUMN_BID_USER + " TEXT, " +
                     COLUMN_BID_TIME + " TEXT, " +
                     COLUMN_BID_DATE + " TEXT" +

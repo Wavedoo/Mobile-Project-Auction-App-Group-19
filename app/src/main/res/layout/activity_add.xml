@@ -9,7 +9,7 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         />
+        />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -23,12 +23,12 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/purple_200">
 
-            <!-- Welcome User -->
+            <!-- User Auction Items -->
             <TextView
                 android:id="@+id/textViewToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="My Auction Items"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -42,14 +42,14 @@
                 android:textColor="#FFFFFF"
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
-                android:onClick="logOutOnClick"/>
+                android:onClick="addLogOutOnClick"/>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- RecyclerView for Auction Items List -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAuctionItems"
+        android:id="@+id/recyclerViewUserAuctionItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appBarLayout"
@@ -64,6 +64,16 @@
         android:layout_centerInParent="true"
         android:text="No Available Auction Items..."
         android:visibility="gone"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newNoteFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="newItemFABOnClick"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:layout_above="@id/bottomNavigationView"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"/>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

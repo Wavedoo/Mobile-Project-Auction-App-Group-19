@@ -25,7 +25,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDDndiTSwH_keQXlPfXuNIr5EZ9H5zr0mY" />
+            android:value="" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.auctionapp.fileprovider"

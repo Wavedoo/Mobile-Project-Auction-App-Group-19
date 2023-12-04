@@ -54,7 +54,6 @@ public class CreateItem extends AppCompatActivity {
         //Set Up Bottom Navigation:
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        bottomNavigationView.setSelectedItemId(R.id.action_add);
 
     }
     //Button OnClick Functions
@@ -64,10 +63,6 @@ public class CreateItem extends AppCompatActivity {
             // Permissions granted, show options to choose from gallery or take a picture
             showImageChooser();
         }
-    }
-    public void chooseVideoOnClick(){
-
-
     }
     //Function to start the choosing between gallery and Camera
     // Show options to choose from gallery or take a picture
